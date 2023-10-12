@@ -26,6 +26,12 @@
 <c:if test="${param.deleted == 'false'}">
     <div class="fail-message"><p>Something went wrong!</p></div>
 </c:if>
+<c:if test="${param.updateSuccess == 'true'}">
+    <div class="success-message"><p>Client updated successfully!<p></p></div>
+</c:if>
+<c:if test="${param.updateSuccess == 'false'}">
+    <div class="fail-message"><p>Something went wrong!</p></div>
+</c:if>
 <div class="table-div">
     <table>
         <tr>
@@ -42,7 +48,7 @@
                 <td>${client.getPhone()}</td>
                 <td>${client.getAddress()}</td>
                 <td style="display: block">
-                    <button class="button2">Update</button>
+                    <a href="<%= request.getContextPath()%>/updateClient?id=${client.getCode()}" class="button2">Update</a>
                     <a href="<%= request.getContextPath()%>/deleteClient?id=${client.getCode()}" class="button2">Delete</a>
                 </td>
             </tr>
