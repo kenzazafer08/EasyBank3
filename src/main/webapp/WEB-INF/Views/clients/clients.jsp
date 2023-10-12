@@ -64,7 +64,11 @@
                     </td>
                 </tr>
             </c:when>
-
+            <c:when test="${noClientFound or invalidClientId}">
+                <tr>
+                    <td colspan="5">No client with this code.</td>
+                </tr>
+            </c:when>
             <c:otherwise>
                 <c:forEach items="${clients}" var="client">
                     <tr>

@@ -13,7 +13,16 @@
         <a href="<%= request.getContextPath()%>/employees" class="grey-button">Employees</a>
     </div>
 </header>
-<div class="left" ><a href="<%= request.getContextPath()%>/createEmployee" class="button">Add employee</a></div>
+<div class="left" >
+    <div class="wrap" style="padding-left: 12%">
+        <form action="<%= request.getContextPath()%>/employees" method="get" class="search">
+            <input type="text" name="number" id="number" placeholder="Enter employee number!">
+            <button type="submit" class="button">
+                Search
+            </button>
+        </form>
+    </div>
+    <a href="<%= request.getContextPath()%>/createEmployee" class="button">Add employee</a></div>
 <c:if test="${param.success == 'true'}">
     <div class="success-message"><p>Employee added successfully!<p></p></div>
 </c:if>
@@ -42,6 +51,26 @@
             <th>Email</th>
             <th>Actions</th>
         </tr>
+<c:choose>
+    <c:when test="${not empty employee}">
+        <tr>
+            <td>${employee.getNumber()}</td>
+            <td>${employee.getFirstName()} ${employee.getLastName()}</td>
+            <td>${employee.getPhone()}</td>
+            <td>${employee.getAddress()}</td>
+            <td>${employee.getEmail()}</td>
+            <td style="display: block">
+                <a href="<%= request.getContextPath()%>/updateEmployee?id=${employee.getNumber()}" class="button2">Update</a>
+                <a href="<%= request.getContextPath()%>/deleteEmployee?id=${employee.getNumber()}" class="button2">Delete</a>
+            </td>
+        </tr>
+    </c:when>
+    <c:when test="${noEmployeeFound or invalidEmployeeId}">
+        <tr>
+            <td colspan="5">No employee with this number.</td>
+        </tr>
+    </c:when>
+    <c:otherwise>
         <c:forEach items="${employees}" var="employee">
             <tr>
                 <td>${employee.getNumber()}</td>
@@ -55,6 +84,8 @@
                 </td>
             </tr>
         </c:forEach>
+    </c:otherwise>
+</c:choose>
     </table>
 </div>
 <footer class="custom-footer">
