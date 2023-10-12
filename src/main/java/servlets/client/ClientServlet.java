@@ -15,7 +15,7 @@ import services.ClientService;
 
 import java.io.IOException;
 import java.util.List;
-
+import java.util.Optional;
 
 
 @WebServlet("/clients")
@@ -35,15 +35,33 @@ public class ClientServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Client> clients = clientService.getClientList();
+        String clientIdParam = request.getParameter("code");
 
-        if (clients.isEmpty()) {
-            request.setAttribute("noClients", true);
+        if (clientIdParam != null && !clientIdParam.isEmpty()) {
+            try {
+
+                Optional<Client> client = clientService.getClientByCode(clientIdParam);
+
+                if (client.isPresent()) {
+                    request.setAttribute("client", client.get());
+                } else {
+                    request.setAttribute("noClientFound", true);
+                }
+            } catch (NumberFormatException e) {
+                request.setAttribute("invalidClientId", true);
+            }
         } else {
-            request.setAttribute("clients", clients);
+            List<Client> clients = clientService.getClientList();
+
+            if (clients.isEmpty()) {
+                request.setAttribute("noClients", true);
+            } else {
+                request.setAttribute("clients", clients);
+            }
         }
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Views/clients/clients.jsp");
         dispatcher.forward(request, response);
     }
+
 }

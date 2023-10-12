@@ -13,7 +13,17 @@
         <a href="<%= request.getContextPath()%>/employees" class="grey-button">Employees</a>
     </div>
 </header>
-<div class="left" ><a href="<%= request.getContextPath()%>/createClient" class="button">Add client</a></div>
+<div class="left" >
+    <div class="wrap" style="padding-left: 12%">
+        <form action="<%= request.getContextPath()%>/clients" method="get" class="search">
+            <input type="text" name="code" id="code" placeholder="Enter client code!">
+            <button type="submit" class="button">
+                Search
+            </button>
+        </form>
+    </div>
+    <a href="<%= request.getContextPath()%>/createClient" class="button">Add client</a>
+</div>
 <c:if test="${param.success == 'true'}">
     <div class="success-message"><p>Client added successfully!<p></p></div>
 </c:if>
@@ -41,18 +51,36 @@
             <th>Address</th>
             <th>Actions</th>
         </tr>
-        <c:forEach items="${clients}" var="client">
-            <tr>
-                <td>${client.getCode()}</td>
-                <td>${client.getFirstName()} ${client.getLastName()}</td>
-                <td>${client.getPhone()}</td>
-                <td>${client.getAddress()}</td>
-                <td style="display: block">
-                    <a href="<%= request.getContextPath()%>/updateClient?id=${client.getCode()}" class="button2">Update</a>
-                    <a href="<%= request.getContextPath()%>/deleteClient?id=${client.getCode()}" class="button2">Delete</a>
-                </td>
-            </tr>
-        </c:forEach>
+        <c:choose>
+            <c:when test="${not empty client}">
+                <tr>
+                    <td>${client.getCode()}</td>
+                    <td>${client.getFirstName()} ${client.getLastName()}</td>
+                    <td>${client.getPhone()}</td>
+                    <td>${client.getAddress()}</td>
+                    <td style="display: block">
+                        <a href="<%= request.getContextPath()%>/updateClient?id=${client.getCode()}" class="button2">Update</a>
+                        <a href="<%= request.getContextPath()%>/deleteClient?id=${client.getCode()}" class="button2">Delete</a>
+                    </td>
+                </tr>
+            </c:when>
+
+            <c:otherwise>
+                <c:forEach items="${clients}" var="client">
+                    <tr>
+                        <td>${client.getCode()}</td>
+                        <td>${client.getFirstName()} ${client.getLastName()}</td>
+                        <td>${client.getPhone()}</td>
+                        <td>${client.getAddress()}</td>
+                        <td style="display: block">
+                            <a href="<%= request.getContextPath()%>/updateClient?id=${client.getCode()}" class="button2">Update</a>
+                            <a href="<%= request.getContextPath()%>/deleteClient?id=${client.getCode()}" class="button2">Delete</a>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </c:otherwise>
+        </c:choose>
+
     </table>
 </div>
 <footer class="custom-footer">
