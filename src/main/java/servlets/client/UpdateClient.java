@@ -1,9 +1,11 @@
-package servlets;
+package servlets.client;
 
 import Impl.ClientDAO;
+import dao.ClientI;
 import dto.Client;
 import helpers.DBconnection;
 import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -16,11 +18,20 @@ import java.util.Optional;
 
 @WebServlet("/updateClient")
 public class UpdateClient extends HttpServlet {
-    Client client = new Client();
-    DBconnection dbConnection = DBconnection.getInstance();
-    ClientDAO clientDAO = new ClientDAO(dbConnection);
-    ClientService clientService = new ClientService(clientDAO);
+    DBconnection dbConnection;
+    ClientI clientDAO;
+    ClientService clientService;
 
+    Client client;
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        client = new Client();
+        dbConnection = DBconnection.getInstance();
+        clientDAO = new ClientDAO(dbConnection);
+        clientService = new ClientService(clientDAO);
+    }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String clientIdParam = request.getParameter("id");
 
@@ -42,7 +53,7 @@ public class UpdateClient extends HttpServlet {
             return;
         }
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Views/updateClient.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Views/clients/updateClient.jsp");
         dispatcher.forward(request, response);
     }
 

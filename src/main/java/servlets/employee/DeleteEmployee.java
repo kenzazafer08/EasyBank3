@@ -1,18 +1,16 @@
-package servlets;
+package servlets.employee;
 
 
-import Impl.ClientDAO;
 import Impl.EmployeeDAO;
-import dao.ClientI;
 import dao.EmployeeI;
 import helpers.DBconnection;
+import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebInitParam;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import services.ClientService;
 import services.EmployeeService;
 
 import java.io.IOException;
@@ -21,10 +19,18 @@ import java.io.IOException;
         @WebInitParam(name = "allowedMethods", value = "DELETE")
 })
 public class DeleteEmployee extends HttpServlet {
-    DBconnection dbConnection = DBconnection.getInstance();
-    EmployeeI employeeDAO = new EmployeeDAO(dbConnection);
-    EmployeeService employeeService = new EmployeeService(employeeDAO);
+    DBconnection dbConnection;
+    EmployeeI employeeDAO;
+    EmployeeService employeeService;
 
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        dbConnection = DBconnection.getInstance();
+        employeeDAO = new EmployeeDAO(dbConnection);
+        employeeService = new EmployeeService(employeeDAO);
+    }
     protected void doGet(HttpServletRequest request , HttpServletResponse response){
         try {
             doDelete(request, response);

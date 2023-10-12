@@ -1,10 +1,11 @@
-package servlets;
+package servlets.client;
 
 import Impl.ClientDAO;
 import dao.ClientI;
 import dto.Client;
 import helpers.DBconnection;
 import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -20,9 +21,17 @@ import java.util.List;
 @WebServlet("/clients")
 public class ClientServlet extends HttpServlet {
 
-    DBconnection dbConnection = DBconnection.getInstance();
-    ClientI clientDAO = new ClientDAO(dbConnection);
-    ClientService clientService = new ClientService(clientDAO);
+    DBconnection dbConnection;
+    ClientI clientDAO;
+    ClientService clientService;
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        dbConnection = DBconnection.getInstance();
+        clientDAO = new ClientDAO(dbConnection);
+        clientService = new ClientService(clientDAO);
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -34,7 +43,7 @@ public class ClientServlet extends HttpServlet {
             request.setAttribute("clients", clients);
         }
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Views/clients.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Views/clients/clients.jsp");
         dispatcher.forward(request, response);
     }
 }

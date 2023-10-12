@@ -1,9 +1,10 @@
-package servlets;
+package servlets.client;
 
 
 import Impl.ClientDAO;
 import dao.ClientI;
 import helpers.DBconnection;
+import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebInitParam;
 import jakarta.servlet.annotation.WebServlet;
@@ -18,9 +19,17 @@ import java.io.IOException;
         @WebInitParam(name = "allowedMethods", value = "DELETE")
 })
 public class DeleteClient extends HttpServlet {
-    DBconnection dbConnection = DBconnection.getInstance();
-    ClientI clientDAO = new ClientDAO(dbConnection);
-    ClientService clientService = new ClientService(clientDAO);
+    DBconnection dbConnection;
+    ClientI clientDAO;
+    ClientService clientService;
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        dbConnection = DBconnection.getInstance();
+        clientDAO = new ClientDAO(dbConnection);
+        clientService = new ClientService(clientDAO);
+    }
 
 
     protected void doGet(HttpServletRequest request , HttpServletResponse response){

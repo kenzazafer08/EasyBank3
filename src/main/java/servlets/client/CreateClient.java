@@ -1,30 +1,40 @@
-package servlets;
+package servlets.client;
 
 import Impl.ClientDAO;
 import dao.ClientI;
-import helpers.DBconnection;
 import dto.Client;
+import helpers.DBconnection;
 import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.*;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import services.ClientService;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Optional;
 
 @WebServlet("/createClient")
 public class CreateClient extends HttpServlet {
-    Client client = new Client();
-    DBconnection dbConnection = DBconnection.getInstance();
-    ClientDAO clientDAO = new ClientDAO(dbConnection);
-    ClientService clientService = new ClientService(clientDAO);
+    DBconnection dbConnection;
+    ClientI clientDAO;
+    ClientService clientService;
+
+    Client client;
 
     @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        client = new Client();
+        dbConnection = DBconnection.getInstance();
+        clientDAO = new ClientDAO(dbConnection);
+        clientService = new ClientService(clientDAO);
+    }
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Views/addClient.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Views/clients/addClient.jsp");
         dispatcher.forward(request, response);
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
