@@ -20,16 +20,18 @@ import java.util.Optional;
 
 @WebServlet("/updateEmployee")
 public class UpdateEmployee extends HttpServlet {
+    Employee employee = new Employee();
+
+    DBconnection dbConnection = DBconnection.getInstance();
+    EmployeeI employeeDAO = new EmployeeDAO(dbConnection);
+    EmployeeService employeeService = new EmployeeService(employeeDAO);
+
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String employeeIdParam = request.getParameter("id");
 
         if (employeeIdParam != null && !employeeIdParam.isEmpty()) {
             try {
-                DBconnection dbConnection = DBconnection.getInstance();
-                EmployeeI employeeDAO = new EmployeeDAO(dbConnection);
-                EmployeeService employeeService = new EmployeeService(employeeDAO);
-
                 Optional<Employee> employee = employeeService.getEmployeeByMatriculationNumber(employeeIdParam);
                 if (employee.isPresent()) {
                     request.setAttribute("employee", employee.get());
@@ -51,7 +53,6 @@ public class UpdateEmployee extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Employee employee = new Employee();
         employee.setNumber(request.getParameter("id"));
         employee.setFirstName(request.getParameter("firstName"));
         employee.setLastName(request.getParameter("lastName"));
@@ -62,9 +63,6 @@ public class UpdateEmployee extends HttpServlet {
         if (employee.getNumber() != null && !employee.getNumber().isEmpty()) {
             try {
 
-                DBconnection dbConnection = DBconnection.getInstance();
-                EmployeeI employeeDAO = new EmployeeDAO(dbConnection);
-                EmployeeService employeeService = new EmployeeService(employeeDAO);
                 Optional<Employee> success = employeeService.updateEmployee(employee);
 
                 if (success.isPresent()) {

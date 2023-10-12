@@ -17,22 +17,22 @@ import java.util.Optional;
 
 @WebServlet("/createClient")
 public class CreateClient extends HttpServlet {
+    Client client = new Client();
+    DBconnection dbConnection = DBconnection.getInstance();
+    ClientDAO clientDAO = new ClientDAO(dbConnection);
+    ClientService clientService = new ClientService(clientDAO);
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Views/addClient.jsp");
         dispatcher.forward(request, response);
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Client client = new Client();
         client.setFirstName(request.getParameter("firstName"));
         client.setLastName(request.getParameter("lastName"));
         client.setPhone(request.getParameter("phone"));
         client.setAddress(request.getParameter("address"));
 
-
-        DBconnection dbConnection = DBconnection.getInstance();
-        ClientDAO clientDAO = new ClientDAO(dbConnection);
-        ClientService clientService = new ClientService(clientDAO);
 
         Optional<Client> success = clientService.addClient(client);
         if (success.isPresent()) {

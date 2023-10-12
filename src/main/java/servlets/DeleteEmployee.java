@@ -21,6 +21,9 @@ import java.io.IOException;
         @WebInitParam(name = "allowedMethods", value = "DELETE")
 })
 public class DeleteEmployee extends HttpServlet {
+    DBconnection dbConnection = DBconnection.getInstance();
+    EmployeeI employeeDAO = new EmployeeDAO(dbConnection);
+    EmployeeService employeeService = new EmployeeService(employeeDAO);
 
     protected void doGet(HttpServletRequest request , HttpServletResponse response){
         try {
@@ -37,9 +40,6 @@ public class DeleteEmployee extends HttpServlet {
 
         if (EmployeeIdParam != null && !EmployeeIdParam.isEmpty()) {
             try {
-                DBconnection dbConnection = DBconnection.getInstance();
-                EmployeeI employeeDAO = new EmployeeDAO(dbConnection);
-                EmployeeService employeeService = new EmployeeService(employeeDAO);
                 boolean success = employeeService.deleteEmployee(EmployeeIdParam);
 
                 if (success) {

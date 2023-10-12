@@ -18,6 +18,10 @@ import java.io.IOException;
         @WebInitParam(name = "allowedMethods", value = "DELETE")
 })
 public class DeleteClient extends HttpServlet {
+    DBconnection dbConnection = DBconnection.getInstance();
+    ClientI clientDAO = new ClientDAO(dbConnection);
+    ClientService clientService = new ClientService(clientDAO);
+
 
     protected void doGet(HttpServletRequest request , HttpServletResponse response){
         try {
@@ -34,9 +38,6 @@ public class DeleteClient extends HttpServlet {
 
         if (clientIdParam != null && !clientIdParam.isEmpty()) {
             try {
-                DBconnection dbConnection = DBconnection.getInstance();
-                ClientI clientDAO = new ClientDAO(dbConnection);
-                ClientService clientService = new ClientService(clientDAO);
                 boolean success = clientService.deleteClient(clientIdParam);
 
                 if (success) {

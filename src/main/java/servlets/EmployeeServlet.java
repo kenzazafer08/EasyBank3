@@ -20,12 +20,12 @@ import java.util.List;
 @WebServlet("/employees")
 public class EmployeeServlet extends HttpServlet {
 
+    DBconnection dbConnection = DBconnection.getInstance();
+    EmployeeI employeeDAO = new EmployeeDAO(dbConnection);
+    EmployeeService employeeService = new EmployeeService(employeeDAO);
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        DBconnection dbConnection = DBconnection.getInstance();
-        EmployeeI employeeDAO = new EmployeeDAO(dbConnection);
-        EmployeeService employeeService = new EmployeeService(employeeDAO);
         List<Employee> employees = employeeService.getEmployeeList();
 
         if (employees.isEmpty()) {

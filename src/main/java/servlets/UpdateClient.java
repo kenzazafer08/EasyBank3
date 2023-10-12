@@ -16,16 +16,16 @@ import java.util.Optional;
 
 @WebServlet("/updateClient")
 public class UpdateClient extends HttpServlet {
+    Client client = new Client();
+    DBconnection dbConnection = DBconnection.getInstance();
+    ClientDAO clientDAO = new ClientDAO(dbConnection);
+    ClientService clientService = new ClientService(clientDAO);
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String clientIdParam = request.getParameter("id");
 
         if (clientIdParam != null && !clientIdParam.isEmpty()) {
             try {
-                DBconnection dbConnection = DBconnection.getInstance();
-                ClientDAO clientDAO = new ClientDAO(dbConnection);
-                ClientService clientService = new ClientService(clientDAO);
-
                 Optional<Client> client = clientService.getClientByCode(clientIdParam);
                 if (client.isPresent()) {
                     request.setAttribute("client", client.get());
@@ -47,7 +47,7 @@ public class UpdateClient extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Client client = new Client();
+
         client.setCode(request.getParameter("id"));
         client.setFirstName(request.getParameter("firstName"));
         client.setLastName(request.getParameter("lastName"));
@@ -57,9 +57,6 @@ public class UpdateClient extends HttpServlet {
         if (client.getCode() != null && !client.getCode().isEmpty()) {
             try {
 
-                DBconnection dbConnection = DBconnection.getInstance();
-                ClientDAO clientDAO = new ClientDAO(dbConnection);
-                ClientService clientService = new ClientService(clientDAO);
                 Optional<Client> success = clientService.updateClient(client);
 
                 if (success.isPresent()) {

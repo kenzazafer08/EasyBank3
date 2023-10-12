@@ -19,13 +19,18 @@ import java.util.Optional;
 
 @WebServlet("/createEmployee")
 public class CreateEmployee extends HttpServlet {
+    Employee employee = new Employee();
+
+    DBconnection dbConnection = DBconnection.getInstance();
+    EmployeeI employeeDAO = new EmployeeDAO(dbConnection);
+    EmployeeService employeeService = new EmployeeService(employeeDAO);
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Views/addEmployee.jsp");
         dispatcher.forward(request, response);
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Employee employee = new Employee();
         employee.setFirstName(request.getParameter("firstName"));
         employee.setLastName(request.getParameter("lastName"));
         employee.setPhone(request.getParameter("phone"));
@@ -33,9 +38,6 @@ public class CreateEmployee extends HttpServlet {
         employee.setAddress(request.getParameter("address"));
 
 
-        DBconnection dbConnection = DBconnection.getInstance();
-        EmployeeI employeeDAO = new EmployeeDAO(dbConnection);
-        EmployeeService employeeService = new EmployeeService(employeeDAO);
 
         Optional<Employee> success = employeeService.addEmployee(employee);
         if (success.isPresent()) {

@@ -20,12 +20,12 @@ import java.util.List;
 @WebServlet("/clients")
 public class ClientServlet extends HttpServlet {
 
+    DBconnection dbConnection = DBconnection.getInstance();
+    ClientI clientDAO = new ClientDAO(dbConnection);
+    ClientService clientService = new ClientService(clientDAO);
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        DBconnection dbConnection = DBconnection.getInstance();
-        ClientI clientDAO = new ClientDAO(dbConnection);
-        ClientService clientService = new ClientService(clientDAO);
         List<Client> clients = clientService.getClientList();
 
         if (clients.isEmpty()) {
