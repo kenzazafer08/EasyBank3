@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Add client</title>
+    <title>Add employee</title>
     <link rel="stylesheet" type="text/css" href="Style/style.css">
 </head>
 <body>
@@ -13,21 +13,25 @@
     </div>
 </header>
 <div class="form">
-    <form action="<%= request.getContextPath()%>/createClient" method="post">
+    <form action="<%= request.getContextPath()%>/createEmployee" method="post">
         <label for="firstName">First Name:</label>
         <input type="text" id="firstName" name="firstName" required>
         <br>
         <label for="lastName">Last Name:</label>
         <input type="text" id="lastName" name="lastName" required>
         <br>
-        <label for="phone">Phone:</label>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <br>
+        <label for="email">Phone:</label>
         <input type="text" id="phone" name="phone" required>
         <br>
-        <label for="address">Address:</label>
+        <label for="email">Address:</label>
         <input type="text" id="address" name="address" required>
         <br>
         <input type="submit" value="Create Client">
     </form>
 </div>
+
 </body>
 </html>

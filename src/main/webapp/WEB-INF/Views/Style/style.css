@@ -221,6 +221,44 @@ h2 {
     color: red;
     font-weight: bolder;
 }
-
+form {
+    width: 50%;
+    margin: 0 auto;
+    background-color: #cecece;
+    border-radius: 5px;
+    box-shadow: black;
+    padding: 20px;
+}
+label {
+    display: block;
+    margin-top: 10px;
+}
+input{
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+input[type="submit"] {
+    background-color: green;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+input[type="submit"]:hover {
+    background-color: green;
+}
+.form{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90%;
+}
 
 

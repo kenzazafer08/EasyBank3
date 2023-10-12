@@ -3,6 +3,7 @@ package Impl;
 import dto.Employee;
 import helpers.DBconnection;
 import dao.EmployeeI;
+import helpers.helper;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -44,6 +45,8 @@ public class EmployeeDAO implements EmployeeI {
             if (generatedKeys.next()) {
                 int personId = generatedKeys.getInt(1); // Get the generated person_id
                 // Insert the Employee record with the person_id
+                String employeeNumber = helper.generateClientCode(3);
+                employee.setNumber(employeeNumber);
                 PreparedStatement employeeStatement = connection.prepareStatement(insertEmployeeQuery);
                 employeeStatement.setString(1, employee.getNumber());
                 employeeStatement.setDate(2, new Date(Date.valueOf(LocalDate.now()).getTime()));

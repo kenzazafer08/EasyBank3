@@ -13,7 +13,13 @@
         <a href="<%= request.getContextPath()%>/employees" class="grey-button">Employees</a>
     </div>
 </header>
-<div class="left" ><button class="button">Add employee</button></div>
+<div class="left" ><a href="<%= request.getContextPath()%>/createEmployee" class="button">Add employee</a></div>
+<c:if test="${param.success == 'true'}">
+    <div class="success-message"><p>Employee added successfully!<p></p></div>
+</c:if>
+<c:if test="${param.success == 'false'}">
+    <div class="fail-message"><p>Something went wrong!</p></div>
+</c:if>
 <div class="table-div">
     <table>
         <tr>

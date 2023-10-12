@@ -1,10 +1,7 @@
 package servlets;
 
-import Impl.ClientDAO;
 import Impl.EmployeeDAO;
-import dao.ClientI;
 import dao.EmployeeI;
-import dto.Client;
 import dto.Employee;
 import helpers.DBconnection;
 import jakarta.servlet.RequestDispatcher;
@@ -13,7 +10,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import services.ClientService;
 import services.EmployeeService;
 
 import java.io.IOException;
