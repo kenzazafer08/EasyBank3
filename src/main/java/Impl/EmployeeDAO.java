@@ -127,6 +127,7 @@ public class EmployeeDAO implements EmployeeI {
                 ResultSet resultSet = preparedStatement.executeQuery();
 
                 while (resultSet.next()) {
+                    if(!resultSet.getBoolean("deleted")){
                     Employee employee = new Employee();
                     employee.setNumber(resultSet.getString("number"));
                     employee.setFirstName(resultSet.getString("first_name"));
@@ -136,7 +137,7 @@ public class EmployeeDAO implements EmployeeI {
                     employee.setAddress(resultSet.getString("address"));
                     employee.setDeleted(resultSet.getBoolean("deleted"));
                     employeeList.add(employee);
-                }
+                }}
             }
         } catch (SQLException e) {
             e.printStackTrace();

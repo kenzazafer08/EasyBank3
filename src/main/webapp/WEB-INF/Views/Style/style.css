@@ -1,27 +1,60 @@
+
+
 *{
     margin: 0;
     padding: 0;
 }
 body{
+    min-height: 90vh;
 }
 .home {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    height: 100vh;
+    height: 90vh;
+    padding: 10px;
 }
 
 h1 {
-    font-size: 70px;
-    font-weight: 600;
-    background-image: linear-gradient(to left, #225522, #93d396);
-    color: transparent;
-    background-clip: text;
-    -webkit-background-clip: text;
+    position: relative;
+    padding: 0;
+    margin: 0;
+    font-family: "Raleway", sans-serif;
+    font-weight: 300;
+    font-size: 40px;
+    color: #080808;
+    -webkit-transition: all 0.4s ease 0s;
+    -o-transition: all 0.4s ease 0s;
+    transition: all 0.4s ease 0s;
 }
-
-
+.one h1 {
+    text-align: center;
+    text-transform: uppercase;
+    padding-bottom: 5px;
+}
+.one h1:before {
+    width: 28px;
+    height: 5px;
+    display: block;
+    content: "";
+    position: absolute;
+    bottom: 3px;
+    left: 50%;
+    margin-left: -14px;
+    background-color: #226724;
+}
+.one h1:after {
+    width: 100px;
+    height: 1px;
+    display: block;
+    content: "";
+    position: relative;
+    margin-top: 25px;
+    left: 50%;
+    margin-left: -50px;
+    background-color: #226724;
+}
 p {
     text-indent: 50px;
     text-align: justify;
@@ -30,11 +63,11 @@ p {
 }
 
 .land{
-    margin: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: center
+    justify-content: space-around;
+    align-items: center;
+    height: 40%;
 }
 .button {
     display: inline-block;
@@ -59,10 +92,10 @@ p {
     border-color: #1b1f2326;
     transition-duration: 0.1s;}
 table {
-    font-family: Arial, sans-serif;
-    border-collapse: collapse;
     width: 80%;
     margin: 20px auto;
+    border-radius: 10px;
+    font-size: 12px;
 }
 
 th, td {
@@ -76,14 +109,15 @@ tr:nth-child(even) {
 }
 
 th {
-    color: black;
+    background-color: #000;
+    color: white;
 }
 .left{
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-    width: 100%;
-    margin-right: 5px
+    width: 90%;
+    margin-top: 30px;
 }
 .button2 {
     color: #225522;
@@ -92,14 +126,83 @@ th {
     text-decoration: none;
     display: inline-block;
     font-size: 12px;
+    padding: 2px 4px;
 }
 .button2:hover{
     background-color: #93d396;
 }
 h2 {
-    font-size: 40px;
+    font-size: 60px;
     font-weight: 600;
     color: darkgreen;
     background-clip: text;
     text-align: center;
 }
+.custom-header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-title {
+    font-size: 24px;
+    margin: 0;
+    color: white;
+}
+
+.green-button {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    text-decoration: none;
+}
+
+.grey-button {
+    background-color: #ccc;
+    color: #333;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+    border-radius: 10px;
+    text-decoration: none;
+}
+
+.green-button:hover, .grey-button:hover {
+    opacity: 0.8;
+}
+
+.custom-footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+}
+
+.custom-footer a {
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+.custom-footer a:hover {
+    text-decoration: underline;
+}
+.buttons{
+    display: block;
+    text-decoration: none;
+}
+.table-div{
+    display: flex;
+    align-items: flex-start;
+    min-height: 80vh;
+}
+
+
+

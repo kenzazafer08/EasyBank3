@@ -13,22 +13,24 @@
         <a href="<%= request.getContextPath()%>/employees" class="grey-button">Employees</a>
     </div>
 </header>
-<div class="left" ><button class="button">Add client</button></div>
+<div class="left" ><button class="button">Add employee</button></div>
 <div class="table-div">
     <table>
         <tr>
-            <th>Code</th>
+            <th>Number</th>
             <th>Name</th>
             <th>Phone</th>
             <th>Address</th>
+            <th>Email</th>
             <th>Actions</th>
         </tr>
-        <c:forEach items="${clients}" var="client">
+        <c:forEach items="${employees}" var="employee">
             <tr>
-                <td>${client.getCode()}</td>
-                <td>${client.getFirstName()} ${client.getLastName()}</td>
-                <td>${client.getPhone()}</td>
-                <td>${client.getAddress()}</td>
+                <td>${employee.getNumber()}</td>
+                <td>${employee.getFirstName()} ${employee.getLastName()}</td>
+                <td>${employee.getPhone()}</td>
+                <td>${employee.getAddress()}</td>
+                <td>${employee.getEmail()}</td>
                 <td style="display: block">
                     <button class="button2">Update</button>
                     <button class="button2">Delete</button>
