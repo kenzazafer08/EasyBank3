@@ -1,5 +1,6 @@
 package Impl;
 
+import dto.Client;
 import dto.Employee;
 import helpers.DBconnection;
 import dao.EmployeeI;
@@ -154,28 +155,23 @@ public class EmployeeDAO implements EmployeeI {
         Connection connection = dbConnection.getConnection();
         String updatePersonQuery = "UPDATE person SET first_name = ?, last_name = ?, phone = ?, address = ? WHERE id = ?";
 
-        String updateEmployeeQuery = "UPDATE employee SET recruitment_date = ?, email = ? WHERE number = ?";
+        String updateEmployeeQuery = "UPDATE employee SET email = ? WHERE number = ?";
 
         try {
             Optional<Employee> employeeId = searchByMatricul(updatedEmployee.getNumber());
-
-            if (employeeId.isPresent()) {
-                return Optional.empty();
-            }
 
             PreparedStatement personStatement = connection.prepareStatement(updatePersonQuery);
             personStatement.setString(1, updatedEmployee.getFirstName());
             personStatement.setString(2, updatedEmployee.getLastName());
             personStatement.setString(3, updatedEmployee.getPhone());
             personStatement.setString(4, updatedEmployee.getAddress());
-            personStatement.setInt(5, updatedEmployee.getId());
+            personStatement.setInt(5, employeeId.get().getId());
 
             int rowsUpdatedPerson = personStatement.executeUpdate();
 
             PreparedStatement employeeStatement = connection.prepareStatement(updateEmployeeQuery);
-            employeeStatement.setDate(1, new Date(Date.valueOf(LocalDate.now()).getTime()));
-            employeeStatement.setString(2, updatedEmployee.getEmail());
-            employeeStatement.setString(3, updatedEmployee.getNumber()); // Use the retrieved employee ID
+            employeeStatement.setString(1, updatedEmployee.getEmail());
+            employeeStatement.setString(2, updatedEmployee.getNumber()); // Use the retrieved employee ID
 
             int rowsUpdatedEmployee = employeeStatement.executeUpdate();
 

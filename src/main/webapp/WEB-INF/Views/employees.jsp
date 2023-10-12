@@ -26,6 +26,12 @@
 <c:if test="${param.deleted == 'false'}">
     <div class="fail-message"><p>Something went wrong!</p></div>
 </c:if>
+<c:if test="${param.updateSuccess == 'true'}">
+    <div class="success-message"><p>Employee updated successfully!<p></p></div>
+</c:if>
+<c:if test="${param.updateSuccess == 'false'}">
+    <div class="fail-message"><p>Something went wrong!</p></div>
+</c:if>
 <div class="table-div">
     <table>
         <tr>
@@ -44,7 +50,7 @@
                 <td>${employee.getAddress()}</td>
                 <td>${employee.getEmail()}</td>
                 <td style="display: block">
-                    <button class="button2">Update</button>
+                    <a href="<%= request.getContextPath()%>/updateEmployee?id=${employee.getNumber()}" class="button2">Update</a>
                     <a href="<%= request.getContextPath()%>/deleteEmployee?id=${employee.getNumber()}" class="button2">Delete</a>
                 </td>
             </tr>

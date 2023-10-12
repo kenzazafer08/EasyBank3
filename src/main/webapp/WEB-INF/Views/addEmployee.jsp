@@ -29,7 +29,7 @@
         <label for="email">Address:</label>
         <input type="text" id="address" name="address" required>
         <br>
-        <input type="submit" value="Create Client">
+        <input type="submit" value="Create employee">
     </form>
 </div>
 
