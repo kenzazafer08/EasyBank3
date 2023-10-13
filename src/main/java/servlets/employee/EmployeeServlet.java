@@ -22,14 +22,11 @@ import java.util.Optional;
 @WebServlet("/employees")
 public class EmployeeServlet extends HttpServlet {
 
-    DBconnection dbConnection;
-    EmployeeI employeeDAO;
-    EmployeeService employeeService;
+    private final DBconnection dbConnection;
+    private final EmployeeI employeeDAO;
+    private final EmployeeService employeeService;
 
-
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
+    public EmployeeServlet() {
         dbConnection = DBconnection.getInstance();
         employeeDAO = new EmployeeDAO(dbConnection);
         employeeService = new EmployeeService(employeeDAO);

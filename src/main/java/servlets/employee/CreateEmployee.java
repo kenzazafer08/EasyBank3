@@ -1,6 +1,8 @@
 package servlets.employee;
 
+import Impl.ClientDAO;
 import Impl.EmployeeDAO;
+import dao.ClientI;
 import dao.EmployeeI;
 import dto.Employee;
 import helpers.DBconnection;
@@ -11,6 +13,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import services.ClientService;
 import services.EmployeeService;
 
 import java.io.IOException;
@@ -18,16 +21,11 @@ import java.util.Optional;
 
 @WebServlet("/createEmployee")
 public class CreateEmployee extends HttpServlet {
-    DBconnection dbConnection;
-    EmployeeI employeeDAO;
-    EmployeeService employeeService;
+    private final DBconnection dbConnection;
+    private final EmployeeI employeeDAO;
+    private final EmployeeService employeeService;
 
-    Employee employee;
-
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        employee = new Employee();
+    public CreateEmployee() {
         dbConnection = DBconnection.getInstance();
         employeeDAO = new EmployeeDAO(dbConnection);
         employeeService = new EmployeeService(employeeDAO);
@@ -39,13 +37,12 @@ public class CreateEmployee extends HttpServlet {
         dispatcher.forward(request, response);
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Employee employee = new Employee();
         employee.setFirstName(request.getParameter("firstName"));
         employee.setLastName(request.getParameter("lastName"));
         employee.setPhone(request.getParameter("phone"));
         employee.setEmail(request.getParameter("email"));
         employee.setAddress(request.getParameter("address"));
-
-
 
         Optional<Employee> success = employeeService.addEmployee(employee);
         if (success.isPresent()) {

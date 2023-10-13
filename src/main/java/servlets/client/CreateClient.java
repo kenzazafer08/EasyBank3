@@ -18,26 +18,24 @@ import java.util.Optional;
 
 @WebServlet("/createClient")
 public class CreateClient extends HttpServlet {
-    DBconnection dbConnection;
-    ClientI clientDAO;
-    ClientService clientService;
+    private final DBconnection dbConnection;
+    private final ClientI clientDAO;
+    private final ClientService clientService;
 
-    Client client;
-
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        client = new Client();
+    public CreateClient() {
         dbConnection = DBconnection.getInstance();
         clientDAO = new ClientDAO(dbConnection);
         clientService = new ClientService(clientDAO);
     }
+
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Views/clients/addClient.jsp");
         dispatcher.forward(request, response);
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Client client = new Client();
         client.setFirstName(request.getParameter("firstName"));
         client.setLastName(request.getParameter("lastName"));
         client.setPhone(request.getParameter("phone"));

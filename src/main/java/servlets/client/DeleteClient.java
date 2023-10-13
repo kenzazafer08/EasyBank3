@@ -15,22 +15,17 @@ import services.ClientService;
 
 import java.io.IOException;
 
-@WebServlet(name = "DeleteClient", urlPatterns = {"/deleteClient"}, initParams = {
-        @WebInitParam(name = "allowedMethods", value = "DELETE")
-})
+@WebServlet("/deleteClient")
 public class DeleteClient extends HttpServlet {
-    DBconnection dbConnection;
-    ClientI clientDAO;
-    ClientService clientService;
+    private final DBconnection dbConnection;
+    private final ClientI clientDAO;
+    private final ClientService clientService;
 
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
+    public DeleteClient() {
         dbConnection = DBconnection.getInstance();
         clientDAO = new ClientDAO(dbConnection);
         clientService = new ClientService(clientDAO);
     }
-
 
     protected void doGet(HttpServletRequest request , HttpServletResponse response){
         try {

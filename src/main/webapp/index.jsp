@@ -7,7 +7,7 @@
 </head>
 <body>
 <header class="custom-header">
-  <a style="text-decoration: none"  href="/index.jsp" class="header-title">Easy Bank</a>
+  <a style="text-decoration: none"  href="<%= request.getContextPath()%>/index.jsp" class="header-title">Easy Bank</a>
   <div class="buttons">
     <a href="<%= request.getContextPath()%>/clients" class="green-button">Clients</a>
     <a href="<%= request.getContextPath()%>/employees" class="grey-button">Employees</a>

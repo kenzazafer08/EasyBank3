@@ -15,18 +15,13 @@ import services.EmployeeService;
 
 import java.io.IOException;
 
-@WebServlet(name = "DeleteEmployee", urlPatterns = {"/deleteEmployee"}, initParams = {
-        @WebInitParam(name = "allowedMethods", value = "DELETE")
-})
+@WebServlet("/deleteEmployee")
 public class DeleteEmployee extends HttpServlet {
-    DBconnection dbConnection;
-    EmployeeI employeeDAO;
-    EmployeeService employeeService;
+    private final DBconnection dbConnection;
+    private final EmployeeI employeeDAO;
+    private final EmployeeService employeeService;
 
-
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
+    public DeleteEmployee() {
         dbConnection = DBconnection.getInstance();
         employeeDAO = new EmployeeDAO(dbConnection);
         employeeService = new EmployeeService(employeeDAO);

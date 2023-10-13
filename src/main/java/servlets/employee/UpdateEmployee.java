@@ -18,16 +18,11 @@ import java.util.Optional;
 
 @WebServlet("/updateEmployee")
 public class UpdateEmployee extends HttpServlet {
-    DBconnection dbConnection;
-    EmployeeI employeeDAO;
-    EmployeeService employeeService;
+    private final DBconnection dbConnection;
+    private final EmployeeI employeeDAO;
+    private final EmployeeService employeeService;
 
-    Employee employee;
-
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        employee = new Employee();
+    public UpdateEmployee() {
         dbConnection = DBconnection.getInstance();
         employeeDAO = new EmployeeDAO(dbConnection);
         employeeService = new EmployeeService(employeeDAO);
@@ -58,6 +53,7 @@ public class UpdateEmployee extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Employee employee = new Employee();
         employee.setNumber(request.getParameter("id"));
         employee.setFirstName(request.getParameter("firstName"));
         employee.setLastName(request.getParameter("lastName"));

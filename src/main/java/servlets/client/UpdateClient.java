@@ -18,16 +18,11 @@ import java.util.Optional;
 
 @WebServlet("/updateClient")
 public class UpdateClient extends HttpServlet {
-    DBconnection dbConnection;
-    ClientI clientDAO;
-    ClientService clientService;
+    private final DBconnection dbConnection;
+    private final ClientI clientDAO;
+    private final ClientService clientService;
 
-    Client client;
-
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        client = new Client();
+    public UpdateClient() {
         dbConnection = DBconnection.getInstance();
         clientDAO = new ClientDAO(dbConnection);
         clientService = new ClientService(clientDAO);
@@ -58,7 +53,7 @@ public class UpdateClient extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        Client client = new Client();
         client.setCode(request.getParameter("id"));
         client.setFirstName(request.getParameter("firstName"));
         client.setLastName(request.getParameter("lastName"));
