@@ -15,7 +15,7 @@
 </header>
 <div class="left" >
     <div class="wrap" style="padding-left: 12%">
-        <form action="<%= request.getContextPath()%>/clients" method="get" class="search">
+        <form action="<%= request.getContextPath()%>/client" method="post" class="search">
             <input type="text" name="code" id="code" placeholder="Enter client code!">
             <button type="submit" class="button">
                 Search

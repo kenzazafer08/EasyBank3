@@ -13,7 +13,7 @@
     </div>
 </header>
 <div class="form">
-    <form class="f" action="<%= request.getContextPath()%>/createClient" method="post">
+    <form class="f" action="<%= request.getContextPath()%>/register" method="post">
         <label for="firstName">First Name:</label>
         <input type="text" id="firstName" name="firstName" required>
         <br>

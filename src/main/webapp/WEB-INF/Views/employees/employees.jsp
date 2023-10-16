@@ -15,7 +15,7 @@
 </header>
 <div class="left" >
     <div class="wrap" style="padding-left: 12%">
-        <form action="<%= request.getContextPath()%>/employees" method="get" class="search">
+        <form action="<%= request.getContextPath()%>/employee" method="get" class="search">
             <input type="text" name="number" id="number" placeholder="Enter employee number!">
             <button type="submit" class="button">
                 Search

@@ -13,7 +13,7 @@
     </div>
 </header>
 <div class="form">
-    <form class="f" action="<%= request.getContextPath()%>/updateClient?id=${client.getCode()}" method="post">
+    <form class="f" action="<%= request.getContextPath()%>/edit?id=${client.getCode()}" method="post">
         <label for="firstName">First Name:</label>
         <input type="text" id="firstName" name="firstName" value="${client.getFirstName()}" required>
         <br>
