@@ -21,14 +21,10 @@ import java.util.Optional;
 @WebServlet( urlPatterns = {"/clients" , "/createClient", "/register","/deleteClient" , "/updateClient" , "/edit", "/client"})
 public class ClientServlet extends HttpServlet {
 
-    DBconnection dbConnection;
-    ClientI clientDAO;
     ClientService clientService;
     @Override
     public void init() throws ServletException {
-        dbConnection = DBconnection.getInstance();
-        clientDAO = new ClientDAO(dbConnection);
-        clientService = new ClientService(clientDAO);
+        clientService = new ClientService();
     }
 
     @Override

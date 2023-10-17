@@ -22,16 +22,12 @@ import java.util.Optional;
 @WebServlet( urlPatterns = {"/employees" , "/createEmployee", "/registerEmployee","/deleteEmployee" , "/updateEmployee" , "/editEmployee", "/employee"})
 
 public class EmployeeServlet extends HttpServlet {
-
-    DBconnection dbConnection;
-    EmployeeI employeeDAO;
     EmployeeService employeeService;
 
     @Override
     public void init() throws ServletException {
-        dbConnection = DBconnection.getInstance();
-        employeeDAO = new EmployeeDAO(dbConnection);
-        employeeService = new EmployeeService(employeeDAO);
+
+        employeeService = new EmployeeService();
     }
 
     @Override

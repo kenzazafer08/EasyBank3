@@ -1,16 +1,19 @@
 package services;
 
+import Impl.EmployeeDAO;
 import dto.Employee;
 import dao.EmployeeI;
+import helpers.DBconnection;
 
 import java.util.List;
 import java.util.Optional;
 
 public class EmployeeService {
-    private final EmployeeI employeeDAO;
+    DBconnection dbConnection = DBconnection.getInstance();
+    EmployeeI employeeDAO = new EmployeeDAO(dbConnection);
 
-    public EmployeeService(EmployeeI employeeDAO) {
-        this.employeeDAO = employeeDAO;
+    public EmployeeService() {
+
     }
 
     public Optional<Employee> addEmployee(Employee employee) {

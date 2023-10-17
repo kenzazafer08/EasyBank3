@@ -2,15 +2,18 @@ package services;
 
 import dto.Client;
 import dao.ClientI;
+import Impl.ClientDAO;
+import helpers.DBconnection;
 
 import java.util.List;
 import java.util.Optional;
 
 public class ClientService {
-    private final ClientI clientDAO;
+    DBconnection dbConnection = DBconnection.getInstance();
+    ClientI clientDAO = new ClientDAO(dbConnection);
 
-    public ClientService(ClientI clientDAO) {
-        this.clientDAO = clientDAO;
+    public ClientService() {
+
     }
 
     public Optional<Client> addClient(Client client) {
